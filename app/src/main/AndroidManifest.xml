@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".compose.ComposeTweetActivity"/>
         <activity android:name=".timeline.TimelineActivity"/>
+        <activity android:name=".notification.NotificationActivity" />
     </application>
 
 </manifest>

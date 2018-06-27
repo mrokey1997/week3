@@ -13,8 +13,10 @@ import com.twitter.sdk.android.core.models.Tweet;
 import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import sg.howard.twitterclient.R;
+import sg.howard.twitterclient.adapter.TweetAdapter;
 import sg.howard.twitterclient.compose.ComposeTweetActivity;
 
 public class TimelineActivity extends AppCompatActivity implements TimelineContract.View {
@@ -23,6 +25,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
     ProgressBar loader;
     FloatingActionButton fab;
     TimelineContract.Presenter presenter;
+    TweetAdapter tweetAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +39,16 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
         fab.setOnClickListener(view -> {
            startActivity(new Intent(this, ComposeTweetActivity.class));
         });
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        tweetAdapter = new TweetAdapter(this);
+        rvTimeline.hasFixedSize();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvTimeline.setLayoutManager(layoutManager);
+        rvTimeline.setAdapter(tweetAdapter);
     }
 
     @Override
@@ -56,7 +69,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
 
     @Override
     public void onGetStatusesSuccess(List<Tweet> data) {
-        Log.d(TAG, "Loaded " + data.size());
+        tweetAdapter.setData(data);
     }
 
     @Override

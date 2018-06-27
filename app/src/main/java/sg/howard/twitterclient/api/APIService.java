@@ -23,12 +23,7 @@ public class APIService {
                     httpClient.readTimeout(60 * 1000, TimeUnit.MILLISECONDS);
                     httpClient.connectTimeout(20 * 1000, TimeUnit.MILLISECONDS);
                     HttpLoggingInterceptor logging = new HttpLoggingInterceptor(
-                            new HttpLoggingInterceptor.Logger() {
-                                @Override
-                                public void log(String message) {
-                                    Log.d("API", message);
-                                }
-                            }
+                            message -> Log.d("APIIIIII", message)
                     );
                     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
                     httpClient.addNetworkInterceptor(logging);

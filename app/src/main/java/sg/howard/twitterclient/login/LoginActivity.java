@@ -1,18 +1,15 @@
 package sg.howard.twitterclient.login;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthException;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
@@ -99,6 +96,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             clearTwitter();
         }
     }
+
     private void endAuthorizeInProgress() {
         try {
             final TwitterAuthClient twitterAuthClient = new TwitterAuthClient();

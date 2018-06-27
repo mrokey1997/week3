@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.twitter.sdk.android.core.models.User;
-
 /** Singletone class helper to handle shared preference, based on this tutorial below
  * https://www.journaldev.com/1377/java-singleton-design-pattern-best-practices-examples
  */

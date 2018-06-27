@@ -1,7 +1,5 @@
 package sg.howard.twitterclient.compose;
 
-import android.text.Editable;
-
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.models.Tweet;
 
