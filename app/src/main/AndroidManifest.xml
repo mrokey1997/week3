@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".compose.ComposeTweetActivity"/>
         <activity android:name=".timeline.TimelineActivity"/>
-        <activity android:name=".notification.NotificationActivity" />
         <activity
             android:name=".profile.ProfileActivity"
             android:theme="@style/ProfileTheme"

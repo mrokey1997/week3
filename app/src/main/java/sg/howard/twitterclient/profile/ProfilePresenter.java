@@ -23,7 +23,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public void start(int count) {
         mView.showLoading(true);
         client.getStatusesService()
-                .userTimeline(null, null, null, null,null,null,null,null,null)
+                .userTimeline(null, null, count, null,null,null,null,null,null)
                 .enqueue(new Callback<List<Tweet>>() {
                     @Override
                     public void success(Result<List<Tweet>> result) {

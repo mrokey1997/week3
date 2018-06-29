@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import sg.howard.twitterclient.R;
 import sg.howard.twitterclient.adapter.TweetAdapter;
 import sg.howard.twitterclient.compose.ComposeTweetActivity;
@@ -45,6 +46,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     TextView tv_calender_profile;
     TextView tv_nFollowing;
     TextView tv_nFollower;
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     EndlessRecyclerViewScrollListener scrollListener;
     @Override
@@ -76,12 +79,24 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
         tv_calender_profile = findViewById(R.id.tv_calender_profile);
         tv_nFollowing = findViewById(R.id.tv_nFollowing);
         tv_nFollower = findViewById(R.id.tv_nFollower);
+
+        initSwipeRefreshLayout();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         presenter.start(10);
+    }
+
+    private void initSwipeRefreshLayout() {
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            presenter.start(10);
+            scrollListener.resetState();
+        });
     }
 
     private void initBottomNavigationView() {

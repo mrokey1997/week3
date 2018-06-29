@@ -13,6 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 22
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         debug {
@@ -73,4 +75,5 @@ dependencies {
     implementation 'joda-time:joda-time:2.10'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.github.varunest:sparkbutton:1.0.5'
+    implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
 }

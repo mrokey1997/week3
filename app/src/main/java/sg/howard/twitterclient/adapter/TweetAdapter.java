@@ -1,19 +1,20 @@
 package sg.howard.twitterclient.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.ViewTarget;
 import com.twitter.sdk.android.core.models.Tweet;
 import com.varunest.sparkbutton.SparkButton;
 
@@ -22,17 +23,30 @@ import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 import sg.howard.twitterclient.R;
+import sg.howard.twitterclient.fragment.ImageDialogFragment;
 import sg.howard.twitterclient.util.ParseRelativeDate;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     private List<Tweet> tweets;
     private Context context;
+    private int lastPosition = -1;
 
     public TweetAdapter(Context context) {
         tweets = new ArrayList<>();
         this.context = context;
     }
 
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_rv);
+            animation.setDuration(3000);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
 
     public void setData(List<Tweet> tweets) {
         this.tweets = tweets;
@@ -70,6 +84,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
                 .load(tweet.extendedEntities.media.size() != 0 ? tweet.extendedEntities.media.get(0).mediaUrlHttps : "")
                 .into(holder.img_image);
 
+        holder.img_image.setOnClickListener(view -> {
+            ImageDialogFragment fragment = ImageDialogFragment.newInstance(7, 7.0f, false, false,
+                    tweet.extendedEntities.media.size() != 0 ? tweet.extendedEntities.media.get(0).mediaUrlHttps : "");
+            FragmentManager manager = ((Activity)context).getFragmentManager();
+            fragment.show(manager, "blur_sample");
+        });
+
+
         holder.tv_retweet.setText(tweet.retweetCount+"");
 
         holder.btn_heart.setOnClickListener(view -> {
@@ -79,6 +101,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
         holder.tv_like.setText(tweet.favoriteCount+"");
 
+        setAnimation(holder.itemView, position);
     }
 
     @Override
