@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ProfileTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowSharedElementEnterTransition">@transition/profile_transition</item>
+    </style>
+
 </resources>

@@ -12,12 +12,14 @@
         android:layout_marginTop="@dimen/margin8dp"
         android:layout_marginBottom="@dimen/margin8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
 
         <ImageView
             android:id="@+id/img_avatar"
-            android:src="@drawable/avatar"
+            android:src="@color/colorAccent"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginStart="@dimen/margin8dp"
@@ -39,6 +41,7 @@
             app:layout_constraintStart_toEndOf="@+id/img_avatar"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             android:id="@+id/tv_screen_name"
             android:layout_width="wrap_content"
@@ -51,18 +54,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin4dp"
+            android:layout_marginTop="@dimen/margin4dp"
+            android:text="@string/time"
+            android:textSize="@dimen/textSize16sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_screen_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/tv_text"
             android:layout_width="272dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin8dp"
             android:text="@string/text"
             android:textColor="#000000"
+            android:autoLink="all"
+            android:textColorLink="@color/colorAccent"
             android:textSize="@dimen/textSize16sp"
             app:layout_constraintStart_toEndOf="@+id/img_avatar"
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_image"
+            app:riv_corner_radius="20dip"
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
@@ -82,14 +99,26 @@
             app:layout_constraintTop_toBottomOf="@+id/img_image"
             android:contentDescription="@string/comment" />
 
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/count"
+            android:textSize="@dimen/textSize16sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/ic_comment"
+            app:layout_constraintTop_toBottomOf="@+id/img_image" />
+
         <ImageView
             android:id="@+id/ic_retweet"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="17dp"
             android:src="@drawable/ic_retweet"
-            app:layout_constraintStart_toEndOf="@+id/ic_comment"
+            app:layout_constraintStart_toEndOf="@+id/tv_comment"
             app:layout_constraintTop_toBottomOf="@+id/img_image"
             android:contentDescription="@string/retweet" />
 
@@ -104,16 +133,20 @@
             app:layout_constraintStart_toEndOf="@+id/ic_retweet"
             app:layout_constraintTop_toBottomOf="@+id/img_image" />
 
-        <ImageView
-            android:id="@+id/ic_heart"
+        <com.varunest.sparkbutton.SparkButton
+            android:id="@+id/btn_heart"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="17dp"
-            android:src="@drawable/ic_heart"
+            app:sparkbutton_iconSize="22dp"
+            app:sparkbutton_activeImage="@drawable/ic_favorite_red_24dp"
+            app:sparkbutton_inActiveImage="@drawable/ic_favorite_black_24dp"
             app:layout_constraintStart_toEndOf="@+id/tv_retweet"
             app:layout_constraintTop_toBottomOf="@+id/img_image"
-            android:contentDescription="@string/retweet" />
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="17dp"
+            app:sparkbutton_primaryColor="@color/redFF"
+            app:sparkbutton_secondaryColor="@color/black"/>
+
 
         <TextView
             android:id="@+id/tv_like"
@@ -123,7 +156,7 @@
             android:layout_marginTop="17dp"
             android:text="@string/count"
             android:textSize="@dimen/textSize16sp"
-            app:layout_constraintStart_toEndOf="@+id/ic_heart"
+            app:layout_constraintStart_toEndOf="@+id/btn_heart"
             app:layout_constraintTop_toBottomOf="@+id/img_image" />
 
         

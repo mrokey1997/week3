@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">TwitterClient</string>
     <string name="avatar">Avatar</string>
-    <string name="baron">Baron</string>
-    <string name="iimbaron">\@iimbaron</string>
-    <string name="text">Hello, i\'m developing an application base Twitter https://t.co/jqAUrpC22t</string>
+    <string name="baron">Name</string>
+    <string name="iimbaron">\@screen_name</string>
+    <string name="text">text</string>
     <string name="count">9999</string>
     <string name="retweet">Retweet</string>
     <string name="comment">Comment</string>
     <string name="image">Image</string>
+    <string name="des">Description</string>
+    <string name="location">Location</string>
+    <string name="link">URL</string>
+    <string name="empty">empty</string>
+    <string name="time">• time</string>
+    <string name="number99">99</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="joined">Joined</string>
 </resources>

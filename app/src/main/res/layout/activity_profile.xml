@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"
+                android:background="@color/white"
+                android:paddingBottom="8dp"
+                android:layout_marginBottom="8dp">
+                
+                <ImageView
+                    android:id="@+id/img_cover"
+                    android:src="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="111dp"
+                    android:scaleType="centerCrop"
+                    android:transitionName="profile transition"
+                    android:contentDescription="@string/empty" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/roundedImageView2"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:src="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_avatar_profile"
+                    app:layout_constraintEnd_toEndOf="@+id/img_avatar_profile"
+                    app:layout_constraintStart_toStartOf="@+id/img_avatar_profile"
+                    app:layout_constraintTop_toTopOf="@+id/img_avatar_profile"
+                    app:riv_corner_radius="30dip"
+                    app:riv_oval="true" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_avatar_profile"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="88dp"
+                    android:scaleType="centerCrop"
+                    android:src="@color/colorAccent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="30dip"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/tv_name_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/baron"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/img_avatar_profile"
+                    app:layout_constraintTop_toBottomOf="@+id/img_cover" />
+
+                <TextView
+                    android:id="@+id/tv_screen_name_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey555"
+                    android:text="@string/iimbaron"
+                    android:layout_marginStart="8dp"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toEndOf="@+id/img_avatar_profile"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_profile" />
+
+                <TextView
+                    android:id="@+id/tv_description_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/des"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_avatar_profile" />
+
+                <ImageView
+                    android:id="@+id/ic_location"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description_profile"
+                    android:contentDescription="@string/empty" />
+
+                <TextView
+                    android:id="@+id/tv_location_profile"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/location"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toEndOf="@+id/ic_location"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description_profile" />
+
+                <ImageView
+                    android:id="@+id/ic_link"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_link"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_location"
+                    android:contentDescription="@string/empty" />
+
+                <TextView
+                    android:id="@+id/tv_link_profile"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/link"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toEndOf="@+id/ic_link"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_location_profile" />
+
+                <ImageView
+                    android:id="@+id/ic_calender"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_calendar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_link"
+                    android:contentDescription="@string/empty" />
+
+                <TextView
+                    android:id="@+id/tv_calender_profile"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/joined"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toEndOf="@+id/ic_calender"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_link_profile" />
+
+                <TextView
+                    android:id="@+id/tv_nFollowing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/number99"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_calender" />
+
+                <TextView
+                    android:id="@+id/tv_following"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/following"
+                    android:textColor="@color/grey555"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_nFollowing"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_calender" />
+
+                <TextView
+                    android:id="@+id/tv_nFollower"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="32dp"
+                    android:text="@string/number99"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_following"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_calender" />
+
+                <TextView
+                    android:id="@+id/tv_followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/followers"
+                    android:textColor="@color/grey555"
+                    android:textSize="@dimen/textSize16sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_nFollower"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_calender"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_collapseMode="pin"/>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:layout_marginBottom="56dp"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="bottom"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:itemIconTint="@drawable/bottom_navigation_colors"
+        app:itemTextColor="@drawable/bottom_navigation_colors"
+        app:menu="@menu/bottom_navigation_item" />
+
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="48dp"
+        android:visibility="visible"
+        app:layout_anchor="@+id/app_bar_layout"
+        app:layout_anchorGravity="top|center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

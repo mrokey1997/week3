@@ -3,4 +3,6 @@
     <dimen name="margin4dp">4dp</dimen>
     <dimen name="textSize16sp">16sp</dimen>
     <dimen name="margin8dp">8dp</dimen>
+    <dimen name="textSize24sp">24sp</dimen>
+    <dimen name="textSize20sp">20sp</dimen>
 </resources>

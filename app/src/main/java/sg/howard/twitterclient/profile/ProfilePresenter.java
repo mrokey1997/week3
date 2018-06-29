@@ -1,6 +1,4 @@
-package sg.howard.twitterclient.timeline;
-
-import android.util.Log;
+package sg.howard.twitterclient.profile;
 
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -11,28 +9,24 @@ import com.twitter.sdk.android.core.models.Tweet;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-
-public class TimelinePresenter implements TimelineContract.Presenter {
+public class ProfilePresenter implements ProfileContract.Presenter {
     private TwitterApiClient client = null;
-    private TimelineContract.View mView;
+    private ProfileContract.View mView;
 
-    public TimelinePresenter(@NonNull TimelineContract.View view, TwitterSession session){
-        mView= view;
+    public ProfilePresenter(ProfileContract.View view, TwitterSession session) {
+        mView = view;
         mView.setPresenter(this);
         client = new TwitterApiClient(session);
-
     }
 
     @Override
     public void start(int count) {
         mView.showLoading(true);
         client.getStatusesService()
-                .homeTimeline(count, null, null, null, null, null, null)
+                .userTimeline(null, null, null, null,null,null,null,null,null)
                 .enqueue(new Callback<List<Tweet>>() {
                     @Override
                     public void success(Result<List<Tweet>> result) {
-                        Log.d("SUCCESSSSSSSS", result.response.toString());
                         mView.showLoading(false);
                         mView.onGetStatusesSuccess(result.data);
                     }

@@ -10,12 +10,12 @@ import com.twitter.sdk.android.core.models.Tweet;
 import androidx.annotation.NonNull;
 
 
-public class ComposeTweetPresenter implements ComposeContract.Presenter {
+public class ComposeTweetPresenter implements ComposeTweetContract.Presenter {
 
-    private final ComposeContract.View mView;
+    private final ComposeTweetContract.View mView;
     private TwitterSession mSession = null;
 
-    public ComposeTweetPresenter(@NonNull ComposeContract.View view, TwitterSession session) {
+    public ComposeTweetPresenter(@NonNull ComposeTweetContract.View view, TwitterSession session) {
         this.mView = view;
         mSession = session;
         mView.setPresenter(this);
@@ -42,7 +42,7 @@ public class ComposeTweetPresenter implements ComposeContract.Presenter {
     }
 
     @Override
-    public void start() {
+    public void start(int count) {
 
     }
 }

@@ -1,12 +1,15 @@
 package sg.howard.twitterclient.compose;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.models.Tweet;
@@ -14,12 +17,16 @@ import com.twitter.sdk.android.core.models.Tweet;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import sg.howard.twitterclient.R;
+import sg.howard.twitterclient.profile.ProfileActivity;
+import sg.howard.twitterclient.timeline.TimelineActivity;
 
-public class ComposeTweetActivity extends AppCompatActivity implements ComposeContract.View{
-    Button btnSend;
+public class ComposeTweetActivity extends AppCompatActivity implements ComposeTweetContract.View{
+    ImageView btnSend;
     EditText edtCompose;
     ProgressBar loader;
-    ComposeContract.Presenter presenter;
+    ComposeTweetContract.Presenter presenter;
+    BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +36,29 @@ public class ComposeTweetActivity extends AppCompatActivity implements ComposeCo
         loader = findViewById(R.id.loader);
         presenter = new ComposeTweetPresenter(this, TwitterCore.getInstance().getSessionManager().getActiveSession());
 
+        initBottomNavigationView();
+
         btnSend.setOnClickListener( view -> presenter.sendTweet(edtCompose.getText().toString()));
     }
 
+    private void initBottomNavigationView() {
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.item_compose);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.item_home:
+                    startActivity(new Intent(this, TimelineActivity.class));
+                    break;
+                case R.id.item_profile:
+                    startActivity(new Intent(this, ProfileActivity.class));
+                    break;
+            }
+            return true;
+        });
+    }
+
     @Override
-    public void setPresenter(ComposeContract.Presenter presenter) {
+    public void setPresenter(ComposeTweetContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -50,6 +75,7 @@ public class ComposeTweetActivity extends AppCompatActivity implements ComposeCo
     @Override
     public void sendTweetSuccess(Result<Tweet> result) {
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        bottomNavigationView.setSelectedItemId(R.id.item_home);
         finish();
     }
 }

@@ -6,7 +6,7 @@ import com.twitter.sdk.android.core.models.Tweet;
 import sg.howard.twitterclient.base.BasePresenter;
 import sg.howard.twitterclient.base.BaseView;
 
-public interface ComposeContract {
+public interface ComposeTweetContract {
     interface View extends BaseView<Presenter>{
 
         void sendTweetSuccess(Result<Tweet> result);

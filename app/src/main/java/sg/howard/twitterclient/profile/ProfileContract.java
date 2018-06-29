@@ -1,11 +1,15 @@
-package sg.howard.twitterclient.notification;
+package sg.howard.twitterclient.profile;
+
+import com.twitter.sdk.android.core.models.Tweet;
+
+import java.util.List;
 
 import sg.howard.twitterclient.base.BasePresenter;
 import sg.howard.twitterclient.base.BaseView;
 
-public interface NotificationContract {
+public interface ProfileContract {
     interface View extends BaseView<Presenter> {
-        void onGetStatusesSuccess();
+        void onGetStatusesSuccess(List<Tweet> data);
     }
 
     interface Presenter extends BasePresenter {
