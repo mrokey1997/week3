@@ -25,12 +25,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import sg.howard.twitterclient.R;
 import sg.howard.twitterclient.adapter.TweetAdapter;
 import sg.howard.twitterclient.compose.ComposeTweetActivity;
-import sg.howard.twitterclient.timeline.TimelineActivity;
 import sg.howard.twitterclient.util.EndlessRecyclerViewScrollListener;
 import sg.howard.twitterclient.util.ParseRelativeDate;
 
-public class ProfileActivity extends AppCompatActivity implements ProfileContract.View {
-    RecyclerView rvProfile;
+public class UserProfileActivity extends AppCompatActivity implements ProfileContract.View {
+    RecyclerView rvUserProfile;
     ProgressBar loader;
     TweetAdapter tweetAdapter;
     BottomNavigationView bottomNavigationView;
@@ -48,11 +47,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     TextView tv_nFollower;
     SwipeRefreshLayout swipeRefreshLayout;
     EndlessRecyclerViewScrollListener scrollListener;
+    long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         loader = findViewById(R.id.loader);
         presenter = new ProfilePresenter(this, TwitterCore.getInstance().getSessionManager().getActiveSession());
 
@@ -79,56 +80,57 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
         initSwipeRefreshLayout();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.start(10);
+        userId = getIntent().getLongExtra("userId", 1111111111);
     }
 
     private void initSwipeRefreshLayout() {
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            presenter.start(10);
+            presenter.startUser(10, userId);
             scrollListener.resetState();
         });
     }
 
     private void initBottomNavigationView() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.item_profile);
+        bottomNavigationView.setSelectedItemId(R.id.item_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.item_compose:
                     startActivity(new Intent(this, ComposeTweetActivity.class));
                     break;
-                case R.id.item_home:
-                    startActivity(new Intent(this, TimelineActivity.class));
+                case R.id.item_profile:
+                    startActivity(new Intent(this, ProfileActivity.class));
                     break;
             }
             return true;
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.startUser(10, userId);
+    }
+
     private void initRecyclerView() {
-        rvProfile = findViewById(R.id.rvProfile);
+        rvUserProfile = findViewById(R.id.rvProfile);
         tweetAdapter = new TweetAdapter(this);
-        rvProfile.hasFixedSize();
+        rvUserProfile.hasFixedSize();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rvProfile.setLayoutManager(layoutManager);
-        rvProfile.setAdapter(tweetAdapter);
+        rvUserProfile.setLayoutManager(layoutManager);
+        rvUserProfile.setAdapter(tweetAdapter);
 
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 int count = (page + 1)*10;
-                presenter.start(count);
+                presenter.startUser(count, userId);
             }
         };
 
-        rvProfile.addOnScrollListener(scrollListener);
+        rvUserProfile.addOnScrollListener(scrollListener);
     }
 
     @SuppressLint("SetTextI18n")

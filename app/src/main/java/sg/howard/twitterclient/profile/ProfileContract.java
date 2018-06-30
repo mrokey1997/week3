@@ -13,6 +13,6 @@ public interface ProfileContract {
     }
 
     interface Presenter extends BasePresenter {
-
+        void startUser(int count, long userId);
     }
 }

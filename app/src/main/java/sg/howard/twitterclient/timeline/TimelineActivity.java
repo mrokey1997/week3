@@ -43,7 +43,6 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
     SwipeRefreshLayout swipeRefreshLayout;
     EndlessRecyclerViewScrollListener scrollListener;
     List<Tweet> list_tweet;
-    View parent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

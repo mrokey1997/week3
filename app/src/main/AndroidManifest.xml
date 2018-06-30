@@ -27,6 +27,9 @@
             android:name=".profile.ProfileActivity"
             android:theme="@style/ProfileTheme"
             android:parentActivityName=".timeline.TimelineActivity"/>
+        <activity android:name=".profile.UserProfileActivity"
+            android:theme="@style/ProfileTheme"
+            android:parentActivityName=".timeline.TimelineActivity"/>
     </application>
 
 </manifest>

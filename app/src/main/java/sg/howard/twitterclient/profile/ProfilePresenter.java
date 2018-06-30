@@ -38,4 +38,24 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     }
                 });
     }
+
+    @Override
+    public void startUser(int count, long userId) {
+        mView.showLoading(true);
+        client.getStatusesService()
+                .userTimeline(userId, null, count, null, null, null, null, null, null)
+                .enqueue(new Callback<List<Tweet>>() {
+                    @Override
+                    public void success(Result<List<Tweet>> result) {
+                        mView.showLoading(false);
+                        mView.onGetStatusesSuccess(result.data);
+                    }
+
+                    @Override
+                    public void failure(TwitterException exception) {
+                        mView.showLoading(false);
+                        mView.showError(exception.getMessage());
+                    }
+                });
+    }
 }

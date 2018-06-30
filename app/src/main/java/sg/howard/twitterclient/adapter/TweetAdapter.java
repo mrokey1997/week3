@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,11 @@ import com.varunest.sparkbutton.SparkButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import sg.howard.twitterclient.R;
 import sg.howard.twitterclient.fragment.ImageDialogFragment;
+import sg.howard.twitterclient.profile.UserProfileActivity;
 import sg.howard.twitterclient.util.ParseRelativeDate;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
@@ -36,12 +39,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         this.context = context;
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    /*
+        Set up animation
+     */
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_rv);
+        if (position > lastPosition) {
+            Animation animation;
+            if (position % 2 == 0)
+                animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_rv);
+            else animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_rv2);
             animation.setDuration(3000);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -70,20 +77,32 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         Tweet tweet = tweets.get(position);
 
+        // Avatar
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(holder.img_avatar);
+        holder.img_avatar.setOnClickListener(view -> {
+            Intent intent = new Intent(context, UserProfileActivity.class);
+            intent.putExtra("userId", tweet.user.id);
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, holder.img_avatar,
+                    context.getString(R.string.user_profile_transition));
+            context.startActivity(intent, optionsCompat.toBundle());
+        });
 
+        // Name
         holder.tv_name.setText(tweet.user.name);
+        // Screen name
         holder.tv_screen_name.setText("@" + tweet.user.screenName);
+        // Time
         holder.tv_time.setText("• " + ParseRelativeDate.getShortcutRelativeTimeAgo(tweet.createdAt));
+        // Text
         holder.tv_text.setText(tweet.text);
 
+        // Image
         Glide.with(context)
                 .load(tweet.extendedEntities.media.size() != 0 ? tweet.extendedEntities.media.get(0).mediaUrlHttps : "")
                 .into(holder.img_image);
-
         holder.img_image.setOnClickListener(view -> {
             ImageDialogFragment fragment = ImageDialogFragment.newInstance(7, 7.0f, false, false,
                     tweet.extendedEntities.media.size() != 0 ? tweet.extendedEntities.media.get(0).mediaUrlHttps : "");
@@ -91,14 +110,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             fragment.show(manager, "blur_sample");
         });
 
-
+        // Retweet count
         holder.tv_retweet.setText(tweet.retweetCount+"");
 
+        // Like
         holder.btn_heart.setOnClickListener(view -> {
             holder.btn_heart.setChecked(!holder.btn_heart.isChecked());
             holder.btn_heart.playAnimation();
         });
 
+        // Favorite count
         holder.tv_like.setText(tweet.favoriteCount+"");
 
         setAnimation(holder.itemView, position);

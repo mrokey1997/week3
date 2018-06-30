@@ -18,4 +18,5 @@
     <string name="followers">Followers</string>
     <string name="joined">Joined</string>
     <string name="profile_transition">profile transition</string>
+    <string name="user_profile_transition">user profile transition</string>
 </resources>
