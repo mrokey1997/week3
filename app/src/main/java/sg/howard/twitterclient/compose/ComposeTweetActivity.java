@@ -1,8 +1,11 @@
 package sg.howard.twitterclient.compose;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
@@ -10,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +32,7 @@ public class ComposeTweetActivity extends AppCompatActivity implements ComposeTw
     ImageView btnSend;
     EditText edtCompose;
     ProgressBar loader;
+    TextView count;
     ComposeTweetContract.Presenter presenter;
     BottomNavigationView bottomNavigationView;
     View parent;
@@ -40,11 +45,32 @@ public class ComposeTweetActivity extends AppCompatActivity implements ComposeTw
         edtCompose = findViewById(R.id.edtCompose);
         loader = findViewById(R.id.loader);
         parent = findViewById(R.id.parent);
+        count = findViewById(R.id.tv_count);
         presenter = new ComposeTweetPresenter(this, TwitterCore.getInstance().getSessionManager().getActiveSession());
 
         initBottomNavigationView();
 
         btnSend.setOnClickListener( view -> presenter.sendTweet(edtCompose.getText().toString()));
+
+        setCharacterCounter();
+    }
+
+    private void setCharacterCounter() {
+        final TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int remain = 140 - charSequence.length();
+                count.setText(remain + "");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        };
+        edtCompose.addTextChangedListener(textWatcher);
     }
 
     @Override

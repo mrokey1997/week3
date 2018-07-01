@@ -60,7 +60,6 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
 
     private void initBottomNavigationView() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.item_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.item_compose:
@@ -105,6 +104,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
     @Override
     protected void onResume() {
         super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.item_home);
         if(tweetAdapter.getItemCount() == 0)
             presenter.start(10);
         else tweetAdapter.setData(list_tweet);

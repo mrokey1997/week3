@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Twitter Mini</string>
+    <string name="app_name">Mini Twitter</string>
     <string name="avatar">Avatar</string>
     <string name="baron">Name</string>
     <string name="iimbaron">\@screen_name</string>

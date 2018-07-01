@@ -51,11 +51,13 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/btnSend"
             android:layout_width="96dp"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_marginStart="200dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="24dp"
             android:src="@drawable/btn_tweet"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="20dip" />
@@ -72,11 +74,26 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:textAlignment="viewStart"
+            app:counterEnabled="true"
+            app:counterMaxLength="140"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_avatar_compose"
             android:hint="@string/hint" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="140"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/edtCompose"
+            app:layout_constraintTop_toTopOf="@+id/edtCompose" />
+
 
         <ProgressBar
             android:id="@+id/loader"

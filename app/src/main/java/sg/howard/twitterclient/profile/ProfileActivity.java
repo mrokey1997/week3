@@ -100,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
     @Override
     protected void onResume() {
+        bottomNavigationView.setSelectedItemId(R.id.item_profile);
         super.onResume();
         presenter.start(10);
     }
@@ -115,7 +116,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
     private void initBottomNavigationView() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.item_profile);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.item_compose:
