@@ -36,7 +36,6 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
     private static String TAG = TimelineActivity.class.getSimpleName();
     RecyclerView rvTimeline;
     ProgressBar loader;
-    FloatingActionButton fab;
     TimelineContract.Presenter presenter;
     TweetAdapter tweetAdapter;
     BottomNavigationView bottomNavigationView;
@@ -50,12 +49,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineContr
         setContentView(R.layout.activity_timeline);
 
         loader = findViewById(R.id.loader);
-        fab = findViewById(R.id.fab);
         presenter = new TimelinePresenter(this, TwitterCore.getInstance().getSessionManager().getActiveSession());
-
-        fab.setOnClickListener(view -> {
-           startActivity(new Intent(this, ComposeTweetActivity.class));
-        });
 
         list_tweet = new ArrayList<>();
 

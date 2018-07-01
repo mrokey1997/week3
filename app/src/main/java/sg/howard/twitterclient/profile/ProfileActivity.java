@@ -25,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import sg.howard.twitterclient.R;
 import sg.howard.twitterclient.adapter.TweetAdapter;
 import sg.howard.twitterclient.compose.ComposeTweetActivity;
+import sg.howard.twitterclient.fragment.ImageDialogFragment;
 import sg.howard.twitterclient.timeline.TimelineActivity;
 import sg.howard.twitterclient.util.EndlessRecyclerViewScrollListener;
 import sg.howard.twitterclient.util.ParseRelativeDate;
@@ -48,6 +49,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     TextView tv_nFollower;
     SwipeRefreshLayout swipeRefreshLayout;
     EndlessRecyclerViewScrollListener scrollListener;
+    String URL_AVATAR = "";
+    String URL_COVER = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,20 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
         initSwipeRefreshLayout();
 
+        onClick();
+    }
+
+    private void onClick() {
+        img_cover.setOnClickListener(view -> {
+            ImageDialogFragment fragment = ImageDialogFragment.newInstance(
+                    7, 7.0f, false, false, URL_COVER);
+            fragment.show(getFragmentManager(), "blur_backgroud");
+        });
+        img_avatar_profile.setOnClickListener(view -> {
+            ImageDialogFragment fragment = ImageDialogFragment.newInstance(
+                    7, 7.0f, false, false, URL_AVATAR);
+            fragment.show(getFragmentManager(), "blur_backgroud");
+        });
     }
 
     @Override
@@ -136,11 +153,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     public void onGetStatusesSuccess(List<Tweet> data) {
         tweetAdapter.setData(data);
         Tweet tweet = data.get(0);
+        URL_COVER = tweet.user.profileBannerUrl;
         Glide.with(this)
-                .load(tweet.user.profileBannerUrl)
+                .load(URL_COVER)
                 .into(img_cover);
+        URL_AVATAR = tweet.user.profileImageUrl;
         Glide.with(this)
-                .load(tweet.user.profileImageUrl)
+                .load(URL_AVATAR)
                 .into(img_avatar_profile);
         tv_name_profile.setText(tweet.user.name);
         tv_screen_name_profile.setText("@" + tweet.user.screenName);

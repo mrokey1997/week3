@@ -84,10 +84,17 @@ public class ImageDialogFragment extends BlurDialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_image, null);
         ImageView img_large = view.findViewById(R.id.img_large);
         Glide.with(view)
-                .load(mURL)
+                .load(getURL(mURL))
                 .into(img_large);
         builder.setView(view);
         return builder.create();
+    }
+
+    private String getURL(String url) {
+        String[] s = url.split("_normal");
+        if (s.length == 2)
+            return s[0] + s[1];
+        else return url;
     }
 
     @Override

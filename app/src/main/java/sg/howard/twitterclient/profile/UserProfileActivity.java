@@ -25,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import sg.howard.twitterclient.R;
 import sg.howard.twitterclient.adapter.TweetAdapter;
 import sg.howard.twitterclient.compose.ComposeTweetActivity;
+import sg.howard.twitterclient.fragment.ImageDialogFragment;
 import sg.howard.twitterclient.util.EndlessRecyclerViewScrollListener;
 import sg.howard.twitterclient.util.ParseRelativeDate;
 
@@ -48,6 +49,9 @@ public class UserProfileActivity extends AppCompatActivity implements ProfileCon
     SwipeRefreshLayout swipeRefreshLayout;
     EndlessRecyclerViewScrollListener scrollListener;
     long userId;
+    String URL_AVATAR = "";
+    String URL_COVER = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,21 @@ public class UserProfileActivity extends AppCompatActivity implements ProfileCon
         initSwipeRefreshLayout();
 
         userId = getIntent().getLongExtra("userId", 1111111111);
+
+        onClick();
+    }
+
+    private void onClick() {
+        img_cover.setOnClickListener(view -> {
+            ImageDialogFragment fragment = ImageDialogFragment.newInstance(
+                    7, 7.0f, false, false, URL_COVER);
+            fragment.show(getFragmentManager(), "blur_backgroud");
+        });
+        img_avatar_profile.setOnClickListener(view -> {
+            ImageDialogFragment fragment = ImageDialogFragment.newInstance(
+                    7, 7.0f, false, false, URL_AVATAR);
+            fragment.show(getFragmentManager(), "blur_backgroud");
+        });
     }
 
     private void initSwipeRefreshLayout() {
@@ -138,17 +157,19 @@ public class UserProfileActivity extends AppCompatActivity implements ProfileCon
     public void onGetStatusesSuccess(List<Tweet> data) {
         tweetAdapter.setData(data);
         Tweet tweet = data.get(0);
+        URL_COVER = tweet.user.profileBannerUrl;
         Glide.with(this)
-                .load(tweet.user.profileBannerUrl)
+                .load(URL_COVER)
                 .into(img_cover);
+        URL_AVATAR = tweet.user.profileImageUrl;
         Glide.with(this)
-                .load(tweet.user.profileImageUrl)
+                .load(URL_AVATAR)
                 .into(img_avatar_profile);
         tv_name_profile.setText(tweet.user.name);
         tv_screen_name_profile.setText("@" + tweet.user.screenName);
         tv_description_profile.setText(tweet.user.description);
         tv_location_profile.setText(tweet.user.location);
-        tv_link_profile.setText(tweet.user.entities.url.urls.get(0).displayUrl);
+        tv_link_profile.setText(tweet.user.entities.url != null ? tweet.user.entities.url.urls.get(0).displayUrl : "");
         tv_calender_profile.setText(ParseRelativeDate.getJoinTweetDate(tweet.user.createdAt));
         tv_nFollowing.setText(tweet.user.friendsCount+"");
         tv_nFollower.setText(tweet.user.followersCount+"");

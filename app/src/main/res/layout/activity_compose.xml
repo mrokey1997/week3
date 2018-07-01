@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="455dp">
 
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
-            android:text="@string/baron"
+            android:text="@string/samplename"
             android:textColor="#000000"
             android:textSize="@dimen/textSize16sp"
             android:textStyle="bold"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="0dp"
-            android:text="@string/iimbaron"
+            android:text="@string/screennamesample"
             android:textSize="@dimen/textSize16sp"
             app:layout_constraintStart_toEndOf="@+id/img_avatar_compose"
             app:layout_constraintTop_toBottomOf="@+id/tv_name_compose" />
@@ -75,17 +76,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_avatar_compose"
-            android:hint="What's happening?" />
+            android:hint="@string/hint" />
 
         <ProgressBar
             android:id="@+id/loader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="168dp"
+            android:layout_marginTop="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -97,5 +99,7 @@
         app:itemIconTint="@drawable/bottom_navigation_colors"
         app:itemTextColor="@drawable/bottom_navigation_colors"
         app:menu="@menu/bottom_navigation_item" />
+
+
 
 </FrameLayout>

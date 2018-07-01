@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TwitterClient</string>
+    <string name="app_name">Twitter Mini</string>
     <string name="avatar">Avatar</string>
     <string name="baron">Name</string>
     <string name="iimbaron">\@screen_name</string>
@@ -19,4 +19,7 @@
     <string name="joined">Joined</string>
     <string name="profile_transition">profile transition</string>
     <string name="user_profile_transition">user profile transition</string>
+    <string name="samplename">Baron</string>
+    <string name="screennamesample">\@iimbaron</string>
+    <string name="hint">What\'s happening?</string>
 </resources>

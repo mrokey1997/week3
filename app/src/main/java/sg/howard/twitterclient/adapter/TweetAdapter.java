@@ -49,7 +49,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             if (position % 2 == 0)
                 animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_rv);
             else animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_rv2);
-            animation.setDuration(3000);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
@@ -85,7 +84,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         holder.img_avatar.setOnClickListener(view -> {
             Intent intent = new Intent(context, UserProfileActivity.class);
             intent.putExtra("userId", tweet.user.id);
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, holder.img_avatar,
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (Activity) context,
+                    holder.img_avatar,
                     context.getString(R.string.user_profile_transition));
             context.startActivity(intent, optionsCompat.toBundle());
         });
@@ -104,23 +105,25 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
                 .load(tweet.extendedEntities.media.size() != 0 ? tweet.extendedEntities.media.get(0).mediaUrlHttps : "")
                 .into(holder.img_image);
         holder.img_image.setOnClickListener(view -> {
-            ImageDialogFragment fragment = ImageDialogFragment.newInstance(7, 7.0f, false, false,
+            ImageDialogFragment fragment = ImageDialogFragment.newInstance(
+                    7, 7.0f, false, false,
                     tweet.extendedEntities.media.size() != 0 ? tweet.extendedEntities.media.get(0).mediaUrlHttps : "");
             FragmentManager manager = ((Activity)context).getFragmentManager();
-            fragment.show(manager, "blur_sample");
+            fragment.show(manager, "blur_background");
         });
 
         // Retweet count
         holder.tv_retweet.setText(tweet.retweetCount+"");
 
+        // Favorite count
+        holder.tv_like.setText(tweet.favoriteCount+"");
+
         // Like
         holder.btn_heart.setOnClickListener(view -> {
             holder.btn_heart.setChecked(!holder.btn_heart.isChecked());
             holder.btn_heart.playAnimation();
+            holder.tv_like.setText(holder.btn_heart.isChecked() ? tweet.favoriteCount + 1 + "" : tweet.favoriteCount + "");
         });
-
-        // Favorite count
-        holder.tv_like.setText(tweet.favoriteCount+"");
 
         setAnimation(holder.itemView, position);
     }

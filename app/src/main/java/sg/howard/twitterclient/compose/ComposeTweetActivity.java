@@ -1,8 +1,11 @@
 package sg.howard.twitterclient.compose;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.models.Tweet;
@@ -26,6 +30,7 @@ public class ComposeTweetActivity extends AppCompatActivity implements ComposeTw
     ProgressBar loader;
     ComposeTweetContract.Presenter presenter;
     BottomNavigationView bottomNavigationView;
+    View parent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,11 +39,41 @@ public class ComposeTweetActivity extends AppCompatActivity implements ComposeTw
         btnSend = findViewById(R.id.btnSend);
         edtCompose = findViewById(R.id.edtCompose);
         loader = findViewById(R.id.loader);
+        parent = findViewById(R.id.parent);
         presenter = new ComposeTweetPresenter(this, TwitterCore.getInstance().getSessionManager().getActiveSession());
 
         initBottomNavigationView();
 
         btnSend.setOnClickListener( view -> presenter.sendTweet(edtCompose.getText().toString()));
+    }
+
+    @Override
+    public void onBackPressed() {
+        exitReveal();
+    }
+
+    private void exitReveal() {
+        int startRadius = Math.max(parent.getWidth(), parent.getHeight());
+        Animator animator = ViewAnimationUtils.createCircularReveal(parent, parent.getWidth()/2, parent.getHeight()/2, startRadius, 0);
+        animator.setDuration(500);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {}
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                parent.setVisibility(View.INVISIBLE);
+                finish();
+                overridePendingTransition(0, 0);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {}
+        });
+        animator.start();
     }
 
     private void initBottomNavigationView() {
@@ -76,6 +111,6 @@ public class ComposeTweetActivity extends AppCompatActivity implements ComposeTw
     public void sendTweetSuccess(Result<Tweet> result) {
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         bottomNavigationView.setSelectedItemId(R.id.item_home);
-        finish();
+        exitReveal();
     }
 }
