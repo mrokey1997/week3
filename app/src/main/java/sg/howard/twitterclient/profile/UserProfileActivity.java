@@ -161,7 +161,7 @@ public class UserProfileActivity extends AppCompatActivity implements ProfileCon
         Glide.with(this)
                 .load(URL_COVER)
                 .into(img_cover);
-        URL_AVATAR = tweet.user.profileImageUrl;
+        URL_AVATAR = tweet.user.profileImageUrl;git ad
         Glide.with(this)
                 .load(URL_AVATAR)
                 .into(img_avatar_profile);

@@ -48,7 +48,11 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/eWGN2uM.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/5xfzdOa.gif' title='My Profile' width='' alt='My Profile' />
+<img src='https://i.imgur.com/zIpHRqT.gif' title='User Profile' width='' alt='User Profile' />
+<img src='https://i.imgur.com/3I7h89z.gif' title='Compose' width='' alt='Compose' />
+
 
 ## Notes
 
